@@ -1917,16 +1917,12 @@ restrict schemes and some domains.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-66">&#182;</a>
               </div>
-              <p>// <a href="https://gist.github.com/dperini/729294">https://gist.github.com/dperini/729294</a>
-var regex =
-  “^” +
-  // protocol identifier
-  “(?:(?:” + schemes.join(“|”) + “)://)” +
-  // user:pass authentication
-  “(?:\S+(?::\S*)?@)?” +
-  “(?:”;</p>
+              <p><a href="https://gist.github.com/dperini/729294">https://gist.github.com/dperini/729294</a></p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">var</span> regex =
+        <span class="hljs-string">"^"</span> +</pre></div></div>
             
         </li>
         
@@ -1937,9 +1933,11 @@ var regex =
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-67">&#182;</a>
               </div>
-              <p>var tld = “(?:\.(?:[a-z\u00a1-\uffff]{2,}))”;</p>
+              <p>protocol identifier</p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-string">"(?:(?:"</span> + schemes.join(<span class="hljs-string">"|"</span>) + <span class="hljs-string">")://|www.\)"</span> +</pre></div></div>
             
         </li>
         
@@ -1950,18 +1948,19 @@ var regex =
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-68">&#182;</a>
               </div>
-              <p>if (allowLocal) {
-  tld += “?”;
-} else {
-  regex +=
-    // IP address exclusion
-    // private &amp; local networks
-    “(?!(?:10|127)(?:\.\d{1,3}){3})” +
-    “(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})” +
-    “(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})”;
-}</p>
+              <p>user:pass authentication</p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-string">"(?:\\S+(?::\\S*)?@)?"</span> +
+        <span class="hljs-string">"(?:"</span>;
+
+      <span class="hljs-keyword">var</span> tld = <span class="hljs-string">"(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))"</span>;
+
+      <span class="hljs-keyword">if</span> (allowLocal) {
+        tld += <span class="hljs-string">"?"</span>;
+      } <span class="hljs-keyword">else</span> {
+        regex +=</pre></div></div>
             
         </li>
         
@@ -1972,34 +1971,104 @@ var regex =
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-69">&#182;</a>
               </div>
-              <p>regex +=
-    // IP address dotted notation octets
-    // excludes loopback network 0.0.0.0
-    // excludes reserved space &gt;= 224.0.0.0
-    // excludes network &amp; broacast addresses
-    // (first &amp; last IP address of each class)
-    “(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])” +
-    “(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}” +
-    “(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))” +
-  “|” +
-    // host name
-    “(?:(?:[a-z\u00a1-\uffff0-9]-<em>)</em>[a-z\u00a1-\uffff0-9]+)” +
-    // domain name
-    “(?:\.(?:[a-z\u00a1-\uffff0-9]-<em>)</em>[a-z\u00a1-\uffff0-9]+)<em>“ +
-    tld +
-  “)” +
-  // port number
-  “(?::\d{2,5})?” +
-  // resource path
-  “(?:[/?#]\S</em>)?” +
-“$”;</p>
+              <p>IP address exclusion
+private &amp; local networks</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>
-      <span class="hljs-keyword">var</span> regex = <span class="hljs-string">"((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&amp;=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&amp;=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-]*)?\??(?:[\-\+=&amp;;%@\.\w]*)#?(?:[\.\!\/\\\w]*))?)"</span>;
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-string">"(?!(?:10|127)(?:\\.\\d{1,3}){3})"</span> +
+          <span class="hljs-string">"(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})"</span> +
+          <span class="hljs-string">"(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})"</span>;
+      }
 
-      <span class="hljs-keyword">var</span> PATTERN = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(regex, <span class="hljs-string">'g'</span>);
+      regex +=</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-70">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-70">&#182;</a>
+              </div>
+              <p>IP address dotted notation octets
+excludes loopback network 0.0.0.0
+excludes reserved space &gt;= 224.0.0.0
+excludes network &amp; broacast addresses
+(first &amp; last IP address of each class)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-string">"(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])"</span> +
+          <span class="hljs-string">"(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}"</span> +
+          <span class="hljs-string">"(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))"</span> +
+        <span class="hljs-string">"|"</span> +</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-71">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-71">&#182;</a>
+              </div>
+              <p>host name</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-string">"(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)"</span> +</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-72">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-72">&#182;</a>
+              </div>
+              <p>domain name</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-string">"(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*"</span> +
+          tld +
+        <span class="hljs-string">")"</span> +</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-73">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-73">&#182;</a>
+              </div>
+              <p>port number</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-string">"(?::\\d{2,5})?"</span> +</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-74">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-74">&#182;</a>
+              </div>
+              <p>resource path</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-string">"(?:[/?#]\\S*)?"</span> +
+      <span class="hljs-string">"$"</span>;
+
+      <span class="hljs-keyword">var</span> PATTERN = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(regex, <span class="hljs-string">'i'</span>);
       <span class="hljs-keyword">if</span> (!PATTERN.exec(value)) {
         <span class="hljs-keyword">return</span> message;
       }
